@@ -1,0 +1,11 @@
+services:
+  erp-dashboard:
+    build: .
+    container_name: ku-csc-erp-dashboard
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:4005:80"
+    volumes:
+      - ./data:/var/www/html/data
+    environment:
+      - TZ=Asia/Bangkok
