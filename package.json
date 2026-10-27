@@ -1,0 +1,13 @@
+{
+  "name": "ku-csc-procurement-dashboard-2569",
+  "version": "7.1.0",
+  "description": "ระบบติดตามและรายงานผลการจัดซื้อจัดจ้างงบลงทุนเงินแผ่นดิน ปี 2569 มหาวิทยาลัยเกษตรศาสตร์ วิทยาเขตเฉลิมพระเกียรติ จังหวัดสกลนคร",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "php -S localhost:8080",
+    "sync": "node server.js --sync"
+  },
+  "author": "นางสาวธัญรดี ดาบสมเด็จ (นักวิชาการพัสดุชำนาญการ)",
+  "license": "PRIVATE"
+}
