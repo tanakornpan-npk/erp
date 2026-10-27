@@ -10,7 +10,7 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
-const { execSync } = require('child_process');
+const { execSync, spawnSync } = require('child_process');
 
 const PORT = process.env.PORT || 3000;
 
@@ -50,24 +50,49 @@ const MIME_TYPES = {
   '.svg': 'image/svg+xml'
 };
 
+function runPhpScript(scriptName, req, rawBody) {
+  const urlParts = req.url.split('?');
+  const queryString = urlParts[1] || '';
+  const authToken = req.headers['x-auth-token'] || '';
+
+  const env = Object.assign({}, process.env, {
+    REQUEST_METHOD: req.method,
+    HTTP_X_QUERY_STRING: queryString,
+    HTTP_X_AUTH_TOKEN: authToken,
+    HTTP_X_RAW_BODY: rawBody,
+    HTTP_X_ENFORCE_AUTH: '1'
+  });
+
+  const result = spawnSync('php ' + scriptName, {
+    cwd: __dirname,
+    env,
+    shell: true,
+    encoding: 'utf8',
+    maxBuffer: 10 * 1024 * 1024
+  });
+
+  return result.stdout || JSON.stringify({ ok: false, message: result.stderr || 'PHP execution failed' });
+}
+
 const server = http.createServer((req, res) => {
   const urlPath = req.url.split('?')[0];
 
-  if (urlPath === '/api.php' || urlPath === '/api') {
-    try {
-      const output = execSync('php api.php', { cwd: __dirname, encoding: 'utf8' });
+  // Block direct access to sensitive files in /data/ (except mock-data.js for offline preview)
+  if (urlPath.startsWith('/data/') && urlPath !== '/data/mock-data.js') {
+    res.writeHead(403, { 'Content-Type': 'application/json; charset=utf-8' });
+    res.end(JSON.stringify({ ok: false, message: 'Forbidden: Direct access to data files is not allowed' }));
+    return;
+  }
+
+  if (urlPath === '/auth.php' || urlPath === '/api.php' || urlPath === '/api') {
+    let body = '';
+    req.on('data', chunk => { body += chunk; });
+    req.on('end', () => {
+      const script = urlPath === '/auth.php' ? 'auth.php' : 'api.php';
+      const out = runPhpScript(script, req, body);
       res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
-      res.end(output);
-    } catch (err) {
-      const fallbackPath = path.join(__dirname, 'data', 'mock-data.json');
-      if (fs.existsSync(fallbackPath)) {
-        res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
-        res.end(fs.readFileSync(fallbackPath, 'utf8'));
-      } else {
-        res.writeHead(500, { 'Content-Type': 'application/json; charset=utf-8' });
-        res.end(JSON.stringify({ ok: false, message: err.message }));
-      }
-    }
+      res.end(out);
+    });
     return;
   }
 
@@ -91,6 +116,7 @@ const server = http.createServer((req, res) => {
 server.listen(PORT, () => {
   console.log(`=============================================================`);
   console.log(`🚀 ระบบพร้อมใช้งานที่: http://localhost:${PORT}`);
+  console.log(`🔐 Auth Endpoint:      http://localhost:${PORT}/auth.php`);
   console.log(`📊 API Endpoint:       http://localhost:${PORT}/api.php`);
   console.log(`=============================================================`);
 });

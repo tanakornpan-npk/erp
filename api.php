@@ -9,7 +9,23 @@
 
 header('Content-Type: application/json; charset=utf-8');
 header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Headers: Content-Type, X-Auth-Token, Authorization');
 date_default_timezone_set('Asia/Bangkok');
+
+require_once __DIR__ . '/auth.php';
+
+if (PHP_SAPI !== 'cli' || !empty($_SERVER['HTTP_X_ENFORCE_AUTH'])) {
+    $currentUser = getAuthenticatedUser();
+    if (!$currentUser) {
+        http_response_code(401);
+        echo json_encode([
+            'ok'           => false,
+            'unauthorized' => true,
+            'message'      => 'กรุณาเข้าสู่ระบบก่อนใช้งาน Dashboard',
+        ], JSON_UNESCAPED_UNICODE);
+        exit;
+    }
+}
 
 const SPREADSHEET_ID = '1Xo-wAMivk54boKXb7MkAtq7QA1-6C1K2zCme32Ugjf0';
 const SHEET_NAME = 'DATA';

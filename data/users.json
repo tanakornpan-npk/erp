@@ -1,0 +1,72 @@
+[
+    {
+        "id": "usr_1",
+        "username": "admin",
+        "passwordHash": "$2y$12$3XH7bJ4QR7bGlUerkl\/ke.JJs2T75xtuRs5CB\/LRBxE0ZHDX41JHm",
+        "displayName": "ผู้ดูแลระบบ (หน่วยพัสดุ)",
+        "role": "admin",
+        "active": true,
+        "createdAt": "27\/10\/2026 14:42:06",
+        "lastLoginAt": null
+    },
+    {
+        "id": "usr_2",
+        "username": "thanradee",
+        "passwordHash": "$2y$12$krX7gpmo5jZ.bDQqzAnn0.5YWui3u\/qyTWm4AwhC4B\/x7oOjU9eNK",
+        "displayName": "นางสาวธัญรดี ดาบสมเด็จ",
+        "role": "admin",
+        "active": true,
+        "createdAt": "27\/10\/2026 14:42:06",
+        "lastLoginAt": "27\/10\/2026 14:42:08"
+    },
+    {
+        "id": "usr_3",
+        "username": "executive",
+        "passwordHash": "$2y$12$y8\/6bGRVHKHlr3t5nUxal.\/n58pk337xZgm2wAGyQAmyRHX.jDxiK",
+        "displayName": "ผู้บริหารวิทยาเขตฯ",
+        "role": "user",
+        "active": true,
+        "createdAt": "27\/10\/2026 14:42:06",
+        "lastLoginAt": null
+    },
+    {
+        "id": "usr_4",
+        "username": "patcharaporn",
+        "passwordHash": "$2y$12$35ekzuTvnsY5iau4PGyBIOrgQZYMsS1Or0qHmL.YWobUBvcsOqVxm",
+        "displayName": "พัชรพร (เจ้าหน้าที่พัสดุ)",
+        "role": "user",
+        "active": true,
+        "createdAt": "27\/10\/2026 14:42:06",
+        "lastLoginAt": null
+    },
+    {
+        "id": "usr_5",
+        "username": "jirawat",
+        "passwordHash": "$2y$12$p8xbZBo4jKbgVdcBFiRmceL1mvCtEHM7Dh1Kc2wU0XLECu1t6q6YG",
+        "displayName": "จิรวัฒน์ (เจ้าหน้าที่พัสดุ)",
+        "role": "user",
+        "active": true,
+        "createdAt": "27\/10\/2026 14:42:06",
+        "lastLoginAt": null
+    },
+    {
+        "id": "usr_6",
+        "username": "nattapon",
+        "passwordHash": "$2y$12$C.yawYv6Jzhe1QGbSxIMKu5j6Y8VmcRJiRn5ACc2qKl5KEVq1FMW.",
+        "displayName": "ณัฐพนธ์ (เจ้าหน้าที่พัสดุ)",
+        "role": "user",
+        "active": true,
+        "createdAt": "27\/10\/2026 14:42:06",
+        "lastLoginAt": null
+    },
+    {
+        "id": "usr_7",
+        "username": "aomjit",
+        "passwordHash": "$2y$12$qWahF4xT1MEFw6gLcnPrDunTP29KAz5v5Dv0EyDDNbJpcT0XxCvMa",
+        "displayName": "อ้อมจิต (เจ้าหน้าที่พัสดุ)",
+        "role": "user",
+        "active": true,
+        "createdAt": "27\/10\/2026 14:42:06",
+        "lastLoginAt": null
+    }
+]
