@@ -4,7 +4,7 @@ services:
     container_name: ku-csc-erp-dashboard
     restart: unless-stopped
     ports:
-      - "127.0.0.1:4005:80"
+      - "127.0.0.1:4006:80"
     volumes:
       - ./data:/var/www/html/data
     environment:
