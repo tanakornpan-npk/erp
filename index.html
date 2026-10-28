@@ -146,18 +146,249 @@
 
     .header-actions {
       display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      justify-content: center;
-      gap: 10px;
-      flex: 0 1 auto;
-      max-width: 100%;
-    }
-    .header-action-buttons {
-      display: flex;
-      flex-wrap: wrap;
+      align-items: center;
       justify-content: flex-end;
+      gap: 10px;
+      flex: 0 0 auto;
+      position: relative;
+    }
+
+    .header-quick-bar {
+      display: flex;
+      align-items: center;
       gap: 8px;
+    }
+
+    .app-menu-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      min-height: 44px;
+      padding: 6px 14px 6px 10px;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.26);
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      color: #fff;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.88rem;
+      transition: background 0.15s ease, transform 0.12s ease, box-shadow 0.15s ease;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+    }
+    .app-menu-toggle:hover {
+      background: rgba(0, 0, 0, 0.38);
+      transform: translateY(-1px);
+    }
+    .app-menu-avatar {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.18);
+      display: inline-grid;
+      place-items: center;
+      font-size: 0.95rem;
+      flex: 0 0 30px;
+    }
+    .app-menu-user-text {
+      max-width: 170px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .app-menu-burger {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding-left: 8px;
+      margin-left: 2px;
+      border-left: 1px solid rgba(255, 255, 255, 0.25);
+      font-size: 0.82rem;
+      color: #ffe9a6;
+      font-weight: 700;
+    }
+
+    .app-menu-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 9400;
+      background: rgba(0, 28, 14, 0.48);
+      backdrop-filter: blur(2px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.22s ease;
+    }
+    .app-menu-backdrop.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .app-menu-drawer {
+      position: fixed;
+      top: 16px;
+      right: 16px;
+      z-index: 9500;
+      width: min(350px, calc(100vw - 24px));
+      max-height: calc(100vh - 32px);
+      overflow-y: auto;
+      background: #ffffff;
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      box-shadow: 0 22px 54px rgba(0, 32, 16, 0.28);
+      transform: translateY(-12px) scale(0.97);
+      transform-origin: top right;
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.18s ease;
+    }
+    .app-menu-drawer.show {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .app-menu-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 16px 18px;
+      background: linear-gradient(135deg, var(--ku-green-dark), var(--ku-green));
+      color: #fff;
+      border-radius: 19px 19px 0 0;
+    }
+    .app-menu-profile {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      min-width: 0;
+    }
+    .app-menu-profile-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.32);
+      display: grid;
+      place-items: center;
+      font-size: 1.2rem;
+      flex: 0 0 42px;
+    }
+    .app-menu-profile-info {
+      min-width: 0;
+    }
+    .app-menu-profile-name {
+      font-weight: 700;
+      font-size: 0.95rem;
+      line-height: 1.25;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .app-menu-profile-sub {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 4px;
+      font-size: 0.76rem;
+      opacity: 0.92;
+    }
+    .app-menu-close {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      background: rgba(0, 0, 0, 0.2);
+      color: #fff;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      font-size: 0.95rem;
+      flex: 0 0 34px;
+    }
+    .app-menu-close:hover {
+      background: rgba(0, 0, 0, 0.36);
+    }
+
+    .app-menu-body {
+      padding: 12px;
+      display: grid;
+      gap: 8px;
+    }
+    .app-menu-section-label {
+      padding: 4px 10px 2px;
+      font-size: 0.74rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+    }
+    .app-menu-list {
+      display: grid;
+      gap: 4px;
+    }
+    .app-menu-item {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 11px 12px;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--text);
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-align: left;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.14s ease, border-color 0.14s ease, transform 0.1s ease;
+    }
+    .app-menu-item:hover {
+      background: var(--ku-green-soft);
+      border-color: rgba(0, 102, 51, 0.15);
+    }
+    .app-menu-item-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: #f1f6f3;
+      color: var(--ku-green-dark);
+      display: grid;
+      place-items: center;
+      font-size: 1.05rem;
+      flex: 0 0 36px;
+    }
+    .app-menu-item:hover .app-menu-item-icon {
+      background: #fff;
+    }
+    .app-menu-item-text {
+      flex: 1 1 auto;
+      min-width: 0;
+      line-height: 1.25;
+    }
+    .app-menu-item-text small {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 400;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+    .app-menu-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 4px 6px;
+    }
+    .app-menu-item-danger {
+      color: var(--danger);
+    }
+    .app-menu-item-danger .app-menu-item-icon {
+      background: #fdecec;
+      color: var(--danger);
+    }
+    .app-menu-item-danger:hover {
+      background: #fdecec;
+      border-color: #f5c2c2;
     }
 
     .container { padding: 18px 0 34px; }
@@ -233,6 +464,37 @@
       outline: none;
     }
 
+    .filter-top-bar {
+      display: none;
+    }
+    .filter-toggle-btn {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      min-height: 42px;
+      padding: 8px 14px;
+      border-radius: 10px;
+      border: 1px solid rgba(0, 102, 51, 0.22);
+      background: var(--ku-green-soft);
+      color: var(--ku-green-dark);
+      font-weight: 700;
+      font-size: 0.86rem;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .filter-count-badge {
+      display: inline-grid;
+      place-items: center;
+      min-width: 20px;
+      height: 20px;
+      padding: 0 6px;
+      border-radius: 999px;
+      background: var(--ku-green);
+      color: #fff;
+      font-size: 0.74rem;
+      font-weight: 700;
+    }
     .filter-actions {
       display: flex;
       justify-content: space-between;
@@ -771,19 +1033,59 @@
     footer a { color: #ffe9a6; }
 
     @media (max-width: 1360px) {
-      .header-inner { flex-direction: column; align-items: stretch; gap: 16px; }
-      .header-actions { align-items: flex-start; width: 100%; }
-      .user-bar, .header-action-buttons { justify-content: flex-start; width: 100%; }
       .filter-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
       .field-search { grid-column: span 3; }
       .kpi-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
     }
 
     @media (max-width: 960px) {
+      .header-inner { flex-direction: column; align-items: stretch; gap: 14px; }
       .header-brand { width: 100%; align-items: center; }
-      .header-logo-wrap { flex: 0 0 84px; width: 84px; height: 84px; border-radius: 14px; padding: 5px; }
+      .header-logo-wrap { flex: 0 0 80px; width: 80px; height: 80px; border-radius: 14px; padding: 5px; }
+      .header-actions { width: 100%; justify-content: space-between; }
+      .header-quick-bar { width: 100%; justify-content: space-between; }
+      .app-menu-toggle { flex: 1 1 auto; justify-content: space-between; }
+      .app-menu-user-text { max-width: 220px; }
+
+      /* Slide-in App Drawer on Tablet & Mobile */
+      .app-menu-drawer {
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: min(340px, 88vw);
+        max-height: 100vh;
+        height: 100vh;
+        border-radius: 22px 0 0 22px;
+        transform: translateX(100%);
+      }
+      .app-menu-drawer.show {
+        transform: translateX(0);
+      }
+      .app-menu-header {
+        border-radius: 22px 0 0 0;
+        padding: 20px 18px;
+      }
+
+      /* Collapsible Filters on Tablet & Mobile */
+      .filter-search-row {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 8px;
+        align-items: end;
+      }
+      .filter-toggle-btn {
+        display: inline-flex;
+      }
+      .filter-collapsible {
+        display: none;
+        margin-top: 12px;
+        padding-top: 12px;
+        border-top: 1px dashed var(--border);
+      }
+      .filter-collapsible.expanded {
+        display: block;
+      }
       .filter-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .field-search { grid-column: span 2; }
       .kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .insight-card { grid-template-columns: 1fr; }
       .charts-grid { grid-template-columns: 1fr; }
@@ -792,36 +1094,25 @@
     @media (max-width: 600px) {
       .header-inner,
       .container { width: calc(100% - 20px); }
-      .app-header { padding: 18px 10px; }
-      .header-brand { flex-direction: column; text-align: center; gap: 12px; }
-      .header-logo-wrap { flex: 0 0 76px; width: 76px; height: 76px; }
-      h1 { font-size: 1.25rem; }
-      .subtitle { font-size: 0.88rem; }
-      .user-bar, .header-action-buttons {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 6px;
-        width: 100%;
-      }
-      .user-pill {
-        grid-column: 1 / -1;
-        justify-content: center;
-      }
-      .header-action-buttons #printBtn {
-        grid-column: 1 / -1;
-      }
+      .app-header { padding: 16px 10px; }
+      .header-brand { flex-direction: row; text-align: left; gap: 12px; align-items: center; }
+      .header-logo-wrap { flex: 0 0 64px; width: 64px; height: 64px; border-radius: 12px; }
+      .eyebrow { font-size: 0.75rem; margin-bottom: 2px; }
+      h1 { font-size: 1.08rem; line-height: 1.28; }
+      .subtitle { font-size: 0.8rem; margin-top: 4px; }
+      .app-menu-user-text { max-width: 135px; font-size: 0.82rem; }
+      .filter-card { padding: 12px; }
       .filter-grid { grid-template-columns: 1fr; }
-      .field-search { grid-column: auto; }
       .filter-actions { flex-direction: column; align-items: stretch; }
       .filter-actions .button-group { display: grid; grid-template-columns: 1fr 1fr; width: 100%; }
       .kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
-      .kpi { min-height: 108px; padding: 12px; }
+      .kpi { min-height: 104px; padding: 12px; }
       .kpi-value { font-size: 1.2rem; }
       .chart-card { min-height: 300px; padding: 12px; }
       .chart { height: 260px; }
       .detail-grid { grid-template-columns: 1fr; }
       .timeline-row { grid-template-columns: 1fr; gap: 3px; }
-      .status-strip { align-items: flex-start; flex-direction: column; gap: 6px; }
+      .status-strip { align-items: flex-start; flex-direction: column; gap: 6px; font-size: 0.82rem; }
       .login-card { padding: 24px 18px 20px; border-radius: 16px; }
       .login-title { font-size: 1.12rem; }
       .modal { padding: 10px; }
@@ -830,11 +1121,13 @@
 
     @media (max-width: 380px) {
       .kpi-grid { grid-template-columns: 1fr; }
-      .user-bar, .header-action-buttons { grid-template-columns: 1fr; }
+      .header-brand { flex-direction: column; text-align: center; }
     }
 
     @media print {
       .header-actions,
+      .app-menu-backdrop,
+      .app-menu-drawer,
       .filter-card,
       .table-toolbar .button-group,
       .pagination,
@@ -1074,24 +1367,96 @@
         </div>
       </div>
       <div class="header-actions">
-        <div id="userBar" class="user-bar" hidden>
-          <span class="user-pill">
-            <span>👤</span>
-            <span id="currentUserName">-</span>
+        <div id="userBar" class="header-quick-bar" hidden>
+          <button id="quickRefreshBtn" class="btn btn-light btn-sm" type="button" title="อัปเดตข้อมูลล่าสุด">↻ อัปเดต</button>
+          <button id="appMenuToggleBtn" class="app-menu-toggle" type="button" aria-expanded="false" aria-controls="appMenuDrawer">
+            <span class="app-menu-avatar" aria-hidden="true">👤</span>
+            <span id="currentUserName" class="app-menu-user-text">ผู้ใช้งาน</span>
             <span id="currentUserRole" class="user-role-tag">USER</span>
-          </span>
-          <button id="manageUsersBtn" class="btn btn-light btn-sm" type="button" hidden>👥 จัดการผู้ใช้</button>
-          <button id="changePasswordBtn" class="btn btn-light btn-sm" type="button">🔑 เปลี่ยนรหัสผ่าน</button>
-          <button id="logoutBtn" class="btn btn-light btn-sm btn-danger-light" type="button">🚪 ออกจากระบบ</button>
-        </div>
-        <div class="header-action-buttons">
-          <button id="refreshBtn" class="btn btn-light" type="button">↻ อัปเดตข้อมูล</button>
-          <a id="sourceSheetLink" class="btn btn-light" href="#" target="_blank" rel="noopener">▦ เปิด Google Sheet</a>
-          <button id="printBtn" class="btn btn-light" type="button">⎙ พิมพ์รายงาน</button>
+            <span class="app-menu-burger">☰ เมนู</span>
+          </button>
         </div>
       </div>
     </div>
   </header>
+
+  <!-- App Menu Backdrop & Slide/Popover Drawer สำหรับมือถือ แท็บเล็ต และเดสก์ท็อป -->
+  <div id="appMenuBackdrop" class="app-menu-backdrop" aria-hidden="true"></div>
+  <aside id="appMenuDrawer" class="app-menu-drawer" role="dialog" aria-modal="false" aria-label="เมนูระบบและบัญชีผู้ใช้">
+    <div class="app-menu-header">
+      <div class="app-menu-profile">
+        <div class="app-menu-profile-icon" aria-hidden="true">👤</div>
+        <div class="app-menu-profile-info">
+          <div id="menuUserName" class="app-menu-profile-name">ผู้ใช้งานระบบ</div>
+          <div class="app-menu-profile-sub">
+            <span>สิทธิ์การใช้งาน:</span>
+            <span id="menuUserRole" class="user-role-tag">USER</span>
+          </div>
+        </div>
+      </div>
+      <button id="closeAppMenuBtn" class="app-menu-close" type="button" aria-label="ปิดเมนู">✕</button>
+    </div>
+
+    <div class="app-menu-body">
+      <div class="app-menu-section-label">เครื่องมือข้อมูลและรายงาน</div>
+      <div class="app-menu-list">
+        <button id="refreshBtn" class="app-menu-item" type="button">
+          <span class="app-menu-item-icon">↻</span>
+          <span class="app-menu-item-text">
+            อัปเดตข้อมูลล่าสุด
+            <small>ดึงข้อมูลชุดปัจจุบันจาก Google Sheet</small>
+          </span>
+        </button>
+        <button id="menuExportBtn" class="app-menu-item" type="button">
+          <span class="app-menu-item-icon">⇩</span>
+          <span class="app-menu-item-text">
+            ดาวน์โหลดไฟล์ CSV
+            <small>ส่งออกรายการตามตัวกรองปัจจุบัน</small>
+          </span>
+        </button>
+        <a id="sourceSheetLink" class="app-menu-item" href="#" target="_blank" rel="noopener">
+          <span class="app-menu-item-icon">▦</span>
+          <span class="app-menu-item-text">
+            เปิด Google Sheet ต้นฉบับ
+            <small>ดูหรือแก้ไขตารางข้อมูลต้นทาง</small>
+          </span>
+        </a>
+        <button id="printBtn" class="app-menu-item" type="button">
+          <span class="app-menu-item-icon">⎙</span>
+          <span class="app-menu-item-text">
+            พิมพ์รายงานสรุป
+            <small>สั่งพิมพ์หรือบันทึกหน้านี้เป็น PDF</small>
+          </span>
+        </button>
+      </div>
+
+      <div class="app-menu-divider"></div>
+      <div class="app-menu-section-label">บัญชีผู้ใช้งานและการตั้งค่า</div>
+      <div class="app-menu-list">
+        <button id="manageUsersBtn" class="app-menu-item" type="button" hidden>
+          <span class="app-menu-item-icon">👥</span>
+          <span class="app-menu-item-text">
+            จัดการบัญชีผู้ใช้งาน
+            <small>เพิ่ม/ลบผู้ใช้ และรีเซ็ตรหัสผ่าน (Admin)</small>
+          </span>
+        </button>
+        <button id="changePasswordBtn" class="app-menu-item" type="button">
+          <span class="app-menu-item-icon">🔑</span>
+          <span class="app-menu-item-text">
+            เปลี่ยนรหัสผ่านส่วนตัว
+            <small>แก้ไขรหัสผ่านสำหรับเข้าสู่ระบบ</small>
+          </span>
+        </button>
+        <button id="logoutBtn" class="app-menu-item app-menu-item-danger" type="button">
+          <span class="app-menu-item-icon">🚪</span>
+          <span class="app-menu-item-text">
+            ออกจากระบบ
+            <small>จบเซสชันการใช้งานปัจจุบัน</small>
+          </span>
+        </button>
+      </div>
+    </div>
+  </aside>
 
   <main class="container">
     <div class="status-strip" aria-live="polite">
@@ -1107,40 +1472,48 @@
     </div>
 
     <section class="card filter-card" aria-label="ตัวกรองข้อมูล">
-      <div class="filter-grid">
+      <div class="filter-search-row" style="margin-bottom:10px">
         <div class="field field-search">
-          <label for="searchInput">ค้นหาข้อมูล</label>
+          <label for="searchInput">ค้นหาข้อมูลด่วน</label>
           <input id="searchInput" type="search" placeholder="ค้นหาผู้รับผิดชอบ รายการ ส่วนงาน สถานะ..." autocomplete="off">
         </div>
-        <div class="field">
-          <label for="ownerFilter">ผู้รับผิดชอบ</label>
-          <select id="ownerFilter"><option value="">ทั้งหมด</option></select>
-        </div>
-        <div class="field">
-          <label for="departmentFilter">ส่วนงาน</label>
-          <select id="departmentFilter"><option value="">ทั้งหมด</option></select>
-        </div>
-        <div class="field">
-          <label for="summaryFilter">สรุปสถานะ</label>
-          <select id="summaryFilter"><option value="">ทั้งหมด</option></select>
-        </div>
-        <div class="field">
-          <label for="stageFilter">ขั้นตอนปัจจุบัน</label>
-          <select id="stageFilter"><option value="">ทั้งหมด</option></select>
-        </div>
-        <div class="field">
-          <label for="methodFilter">วิธีจัดซื้อจัดจ้าง</label>
-          <select id="methodFilter"><option value="">ทั้งหมด</option></select>
-        </div>
+        <button id="toggleFilterDrawerBtn" class="filter-toggle-btn" type="button" aria-expanded="false" aria-controls="filterCollapsible">
+          <span>⚲ ตัวกรอง</span>
+          <span id="activeFilterBadge" class="filter-count-badge" hidden>0</span>
+        </button>
       </div>
-      <div class="filter-actions">
-        <label class="checkbox">
-          <input id="attentionOnly" type="checkbox">
-          แสดงเฉพาะรายการที่ควรติดตาม/มีประเด็นข้อมูล
-        </label>
-        <div class="button-group">
-          <button id="clearFilterBtn" class="btn btn-secondary" type="button">ล้างตัวกรอง</button>
-          <button id="searchBtn" class="btn btn-primary" type="button">⌕ ค้นหาและประมวลผล</button>
+      <div id="filterCollapsible" class="filter-collapsible">
+        <div class="filter-grid" style="grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));">
+          <div class="field">
+            <label for="ownerFilter">ผู้รับผิดชอบ</label>
+            <select id="ownerFilter"><option value="">ทั้งหมด</option></select>
+          </div>
+          <div class="field">
+            <label for="departmentFilter">ส่วนงาน</label>
+            <select id="departmentFilter"><option value="">ทั้งหมด</option></select>
+          </div>
+          <div class="field">
+            <label for="summaryFilter">สรุปสถานะ</label>
+            <select id="summaryFilter"><option value="">ทั้งหมด</option></select>
+          </div>
+          <div class="field">
+            <label for="stageFilter">ขั้นตอนปัจจุบัน</label>
+            <select id="stageFilter"><option value="">ทั้งหมด</option></select>
+          </div>
+          <div class="field">
+            <label for="methodFilter">วิธีจัดซื้อจัดจ้าง</label>
+            <select id="methodFilter"><option value="">ทั้งหมด</option></select>
+          </div>
+        </div>
+        <div class="filter-actions">
+          <label class="checkbox">
+            <input id="attentionOnly" type="checkbox">
+            แสดงเฉพาะรายการที่ควรติดตาม/มีประเด็นข้อมูล
+          </label>
+          <div class="button-group">
+            <button id="clearFilterBtn" class="btn btn-secondary" type="button">ล้างตัวกรอง</button>
+            <button id="searchBtn" class="btn btn-primary" type="button">⌕ ค้นหาและประมวลผล</button>
+          </div>
         </div>
       </div>
     </section>
@@ -1464,6 +1837,9 @@
         'modalBody', 'closeModalBtn', 'modalCloseFooterBtn',
         'loginGate', 'loginForm', 'loginUsername', 'loginPassword', 'toggleLoginPwBtn',
         'loginError', 'loginSubmitBtn', 'userBar', 'currentUserName', 'currentUserRole',
+        'menuUserName', 'menuUserRole', 'quickRefreshBtn', 'appMenuToggleBtn', 'appMenuBackdrop',
+        'appMenuDrawer', 'closeAppMenuBtn', 'menuExportBtn', 'toggleFilterDrawerBtn',
+        'filterCollapsible', 'activeFilterBadge',
         'manageUsersBtn', 'changePasswordBtn', 'logoutBtn',
         'passwordModal', 'closePwModalBtn', 'cancelPwModalBtn', 'changePwForm',
         'oldPasswordInput', 'newPasswordInput', 'confirmPasswordInput',
@@ -1474,9 +1850,53 @@
       });
     }
 
+    function openAppMenu() {
+      dom.appMenuDrawer.classList.add('show');
+      dom.appMenuBackdrop.classList.add('show');
+      dom.appMenuToggleBtn.setAttribute('aria-expanded', 'true');
+    }
+
+    function closeAppMenu() {
+      if (!dom.appMenuDrawer) return;
+      dom.appMenuDrawer.classList.remove('show');
+      dom.appMenuBackdrop.classList.remove('show');
+      if (dom.appMenuToggleBtn) dom.appMenuToggleBtn.setAttribute('aria-expanded', 'false');
+    }
+
+    function toggleAppMenu() {
+      if (dom.appMenuDrawer.classList.contains('show')) {
+        closeAppMenu();
+      } else {
+        openAppMenu();
+      }
+    }
+
     function bindEvents() {
-      dom.refreshBtn.addEventListener('click', function () { loadDashboardData(true); });
-      dom.printBtn.addEventListener('click', function () { window.print(); });
+      dom.quickRefreshBtn.addEventListener('click', function () { loadDashboardData(true); });
+      dom.appMenuToggleBtn.addEventListener('click', toggleAppMenu);
+      dom.closeAppMenuBtn.addEventListener('click', closeAppMenu);
+      dom.appMenuBackdrop.addEventListener('click', closeAppMenu);
+
+      dom.refreshBtn.addEventListener('click', function () {
+        closeAppMenu();
+        loadDashboardData(true);
+      });
+      dom.menuExportBtn.addEventListener('click', function () {
+        closeAppMenu();
+        exportFilteredCsv();
+      });
+      dom.sourceSheetLink.addEventListener('click', function () {
+        closeAppMenu();
+      });
+      dom.printBtn.addEventListener('click', function () {
+        closeAppMenu();
+        setTimeout(function () { window.print(); }, 120);
+      });
+
+      dom.toggleFilterDrawerBtn.addEventListener('click', function () {
+        const expanded = dom.filterCollapsible.classList.toggle('expanded');
+        dom.toggleFilterDrawerBtn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+      });
       dom.searchBtn.addEventListener('click', applyFilters);
       dom.clearFilterBtn.addEventListener('click', clearFilters);
       dom.searchInput.addEventListener('keydown', function (event) {
@@ -1543,9 +1963,13 @@
       });
 
       dom.loginForm.addEventListener('submit', handleLoginSubmit);
-      dom.logoutBtn.addEventListener('click', handleLogout);
+      dom.logoutBtn.addEventListener('click', function () {
+        closeAppMenu();
+        handleLogout();
+      });
 
       dom.changePasswordBtn.addEventListener('click', function () {
+        closeAppMenu();
         dom.changePwForm.reset();
         dom.passwordModal.classList.add('show');
       });
@@ -1553,7 +1977,10 @@
       dom.cancelPwModalBtn.addEventListener('click', function () { dom.passwordModal.classList.remove('show'); });
       dom.changePwForm.addEventListener('submit', handleChangePasswordSubmit);
 
-      dom.manageUsersBtn.addEventListener('click', openUsersModal);
+      dom.manageUsersBtn.addEventListener('click', function () {
+        closeAppMenu();
+        openUsersModal();
+      });
       dom.closeUsersModalBtn.addEventListener('click', function () { dom.usersModal.classList.remove('show'); });
       dom.closeUsersFooterBtn.addEventListener('click', function () { dom.usersModal.classList.remove('show'); });
       dom.createUserForm.addEventListener('submit', handleCreateUserSubmit);
@@ -1561,6 +1988,7 @@
 
       document.addEventListener('keydown', function (event) {
         if (event.key === 'Escape') {
+          closeAppMenu();
           if (dom.detailModal.classList.contains('show')) closeModal();
           if (dom.passwordModal.classList.contains('show')) dom.passwordModal.classList.remove('show');
           if (dom.usersModal.classList.contains('show')) dom.usersModal.classList.remove('show');
@@ -1668,6 +2096,7 @@
     function showLoginGate(errorMessage) {
       state.user = null;
       if (state.autoRefreshTimer) clearInterval(state.autoRefreshTimer);
+      closeAppMenu();
       document.body.classList.add('auth-locked');
       dom.loginGate.classList.add('show');
       dom.userBar.hidden = true;
@@ -1721,8 +2150,12 @@
       dom.loginPassword.value = '';
 
       dom.userBar.hidden = false;
-      dom.currentUserName.textContent = user.displayName || user.username;
-      dom.currentUserRole.textContent = user.role === 'admin' ? 'ADMIN' : 'USER';
+      const displayLabel = user.displayName || user.username;
+      const roleLabel = user.role === 'admin' ? 'ADMIN' : 'USER';
+      dom.currentUserName.textContent = displayLabel;
+      dom.currentUserRole.textContent = roleLabel;
+      if (dom.menuUserName) dom.menuUserName.textContent = displayLabel;
+      if (dom.menuUserRole) dom.menuUserRole.textContent = roleLabel;
       dom.manageUsersBtn.hidden = user.role !== 'admin';
 
       if (isFreshLogin) {
@@ -2020,6 +2453,12 @@
           (!method || record.method === method) &&
           (!attentionOnly || record.attention || (record.dataIssues && record.dataIssues.length));
       });
+
+      const activeCount = [owner, department, summary, stage, method, attentionOnly ? '1' : ''].filter(Boolean).length;
+      if (dom.activeFilterBadge) {
+        dom.activeFilterBadge.textContent = String(activeCount);
+        dom.activeFilterBadge.hidden = activeCount === 0;
+      }
 
       state.page = 1;
       renderAll();
