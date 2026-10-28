@@ -15,8 +15,9 @@ WORKDIR /var/www/html
 COPY index.html api.php auth.php ./
 COPY data/ ./data/
 
-# กำหนดสิทธิ์ให้ Apache (www-data) และ Rootless User อ่านและเขียนไฟล์ในโฟลเดอร์ data/ ได้
+# กำหนดสิทธิ์ให้ Apache และแก้ไขให้เข้ากันได้กับ Rootless Docker Volume
 RUN chown -R www-data:www-data /var/www/html/data \
-    && chmod -R 777 /var/www/html/data
+    && chmod -R 777 /var/www/html/data \
+    && sed -i '/^exec /i chmod -R 777 /var/www/html/data 2>/dev/null || true' /usr/local/bin/docker-php-entrypoint
 
 EXPOSE 80

@@ -9,6 +9,7 @@
  */
 
 date_default_timezone_set('Asia/Bangkok');
+@ini_set('display_errors', '0');
 
 const USERS_FILE = __DIR__ . '/data/users.json';
 const SESSIONS_FILE = __DIR__ . '/data/sessions.json';
@@ -115,7 +116,7 @@ function loadUsers(): array {
 
 function saveUsers(array $users): void {
     ensureDataDir();
-    file_put_contents(USERS_FILE, json_encode(array_values($users), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT), LOCK_EX);
+    @file_put_contents(USERS_FILE, json_encode(array_values($users), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT), LOCK_EX);
 }
 
 function loadSessions(): array {
@@ -137,7 +138,7 @@ function loadSessions(): array {
 
 function saveSessions(array $sessions): void {
     ensureDataDir();
-    file_put_contents(SESSIONS_FILE, json_encode($sessions, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT), LOCK_EX);
+    @file_put_contents(SESSIONS_FILE, json_encode($sessions, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT), LOCK_EX);
 }
 
 function getRequestToken(): string {
