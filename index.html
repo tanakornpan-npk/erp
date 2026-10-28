@@ -32,8 +32,9 @@
     }
 
     * { box-sizing: border-box; }
+    [hidden] { display: none !important; }
 
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; overflow-x: hidden; }
 
     body {
       margin: 0;
@@ -41,6 +42,7 @@
       color: var(--text);
       background: var(--bg);
       line-height: 1.5;
+      overflow-x: hidden;
     }
 
     button, input, select { font: inherit; }
@@ -127,7 +129,8 @@
 
     .title-line-main {
       display: block;
-      white-space: nowrap;
+      white-space: normal;
+      overflow-wrap: break-word;
     }
 
     .title-line-year {
@@ -143,10 +146,18 @@
 
     .header-actions {
       display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 10px;
+      flex: 0 1 auto;
+      max-width: 100%;
+    }
+    .header-action-buttons {
+      display: flex;
       flex-wrap: wrap;
       justify-content: flex-end;
       gap: 8px;
-      min-width: 260px;
     }
 
     .container { padding: 18px 0 34px; }
@@ -421,8 +432,8 @@
       margin-bottom: 16px;
     }
 
-    .chart-card { padding: 14px; min-height: 380px; }
-    .chart { width: 100%; height: 320px; }
+    .chart-card { padding: 14px; min-height: 360px; min-width: 0; overflow: hidden; }
+    .chart { width: 100%; height: 320px; overflow: hidden; }
 
     .table-card { overflow: hidden; }
 
@@ -759,18 +770,18 @@
     footer strong { color: #fff; }
     footer a { color: #ffe9a6; }
 
-    @media (max-width: 1250px) {
-      .filter-grid { grid-template-columns: repeat(3, minmax(170px, 1fr)); }
+    @media (max-width: 1360px) {
+      .header-inner { flex-direction: column; align-items: stretch; gap: 16px; }
+      .header-actions { align-items: flex-start; width: 100%; }
+      .user-bar, .header-action-buttons { justify-content: flex-start; width: 100%; }
+      .filter-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
       .field-search { grid-column: span 3; }
-      .kpi-grid { grid-template-columns: repeat(4, minmax(150px, 1fr)); }
+      .kpi-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
     }
 
-    @media (max-width: 900px) {
-      .header-inner { flex-direction: column; }
+    @media (max-width: 960px) {
       .header-brand { width: 100%; align-items: center; }
-      .header-logo-wrap { flex-basis: 92px; width: 92px; height: 92px; border-radius: 14px; padding: 5px; }
-      .title-line-main { white-space: normal; }
-      .header-actions { justify-content: flex-start; min-width: 0; }
+      .header-logo-wrap { flex: 0 0 84px; width: 84px; height: 84px; border-radius: 14px; padding: 5px; }
       .filter-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .field-search { grid-column: span 2; }
       .kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -778,17 +789,48 @@
       .charts-grid { grid-template-columns: 1fr; }
     }
 
-    @media (max-width: 560px) {
+    @media (max-width: 600px) {
       .header-inner,
-      .container { width: min(100% - 18px, 1500px); }
-      .app-header { padding: 20px 10px; }
+      .container { width: calc(100% - 20px); }
+      .app-header { padding: 18px 10px; }
+      .header-brand { flex-direction: column; text-align: center; gap: 12px; }
+      .header-logo-wrap { flex: 0 0 76px; width: 76px; height: 76px; }
+      h1 { font-size: 1.25rem; }
+      .subtitle { font-size: 0.88rem; }
+      .user-bar, .header-action-buttons {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 6px;
+        width: 100%;
+      }
+      .user-pill {
+        grid-column: 1 / -1;
+        justify-content: center;
+      }
+      .header-action-buttons #printBtn {
+        grid-column: 1 / -1;
+      }
       .filter-grid { grid-template-columns: 1fr; }
       .field-search { grid-column: auto; }
-      .kpi-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
-      .kpi { min-height: 118px; padding: 13px; }
+      .filter-actions { flex-direction: column; align-items: stretch; }
+      .filter-actions .button-group { display: grid; grid-template-columns: 1fr 1fr; width: 100%; }
+      .kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+      .kpi { min-height: 108px; padding: 12px; }
+      .kpi-value { font-size: 1.2rem; }
+      .chart-card { min-height: 300px; padding: 12px; }
+      .chart { height: 260px; }
       .detail-grid { grid-template-columns: 1fr; }
       .timeline-row { grid-template-columns: 1fr; gap: 3px; }
-      .status-strip { align-items: flex-start; flex-direction: column; }
+      .status-strip { align-items: flex-start; flex-direction: column; gap: 6px; }
+      .login-card { padding: 24px 18px 20px; border-radius: 16px; }
+      .login-title { font-size: 1.12rem; }
+      .modal { padding: 10px; }
+      .modal-body { padding: 14px; }
+    }
+
+    @media (max-width: 380px) {
+      .kpi-grid { grid-template-columns: 1fr; }
+      .user-bar, .header-action-buttons { grid-template-columns: 1fr; }
     }
 
     @media print {
@@ -1042,9 +1084,11 @@
           <button id="changePasswordBtn" class="btn btn-light btn-sm" type="button">🔑 เปลี่ยนรหัสผ่าน</button>
           <button id="logoutBtn" class="btn btn-light btn-sm btn-danger-light" type="button">🚪 ออกจากระบบ</button>
         </div>
-        <button id="refreshBtn" class="btn btn-light" type="button">↻ อัปเดตข้อมูล</button>
-        <a id="sourceSheetLink" class="btn btn-light" href="#" target="_blank" rel="noopener">▦ เปิด Google Sheet</a>
-        <button id="printBtn" class="btn btn-light" type="button">⎙ พิมพ์รายงาน</button>
+        <div class="header-action-buttons">
+          <button id="refreshBtn" class="btn btn-light" type="button">↻ อัปเดตข้อมูล</button>
+          <a id="sourceSheetLink" class="btn btn-light" href="#" target="_blank" rel="noopener">▦ เปิด Google Sheet</a>
+          <button id="printBtn" class="btn btn-light" type="button">⎙ พิมพ์รายงาน</button>
+        </div>
       </div>
     </div>
   </header>
@@ -2122,8 +2166,8 @@
       const chart = new google.visualization.PieChart(dom.statusChart);
       chart.draw(data, {
         pieHole: 0.55,
-        legend: { position: 'right', textStyle: { fontName: 'Sarabun', fontSize: 12 } },
-        chartArea: { left: 12, top: 12, width: '93%', height: '88%' },
+        legend: { position: window.innerWidth < 600 ? 'bottom' : 'right', textStyle: { fontName: 'Sarabun', fontSize: 11 } },
+        chartArea: window.innerWidth < 600 ? { left: 8, top: 10, width: '94%', height: '76%' } : { left: 12, top: 12, width: '93%', height: '88%' },
         colors: ['#006633', '#d4a72c', '#16834b', '#1565c0', '#ef6c00', '#7b1fa2', '#607d8b'],
         fontName: 'Sarabun',
         tooltip: { text: 'both' }
@@ -2178,7 +2222,7 @@
       const chart = new google.visualization.BarChart(dom.stageChart);
       chart.draw(data, {
         legend: { position: 'none' },
-        chartArea: { left: 190, top: 16, width: '68%', height: '80%' },
+        chartArea: window.innerWidth < 600 ? { left: 125, top: 14, width: '62%', height: '82%' } : { left: 190, top: 16, width: '68%', height: '80%' },
         colors: ['#006633'],
         fontName: 'Sarabun',
         hAxis: { minValue: 0, format: '0' },
@@ -2206,7 +2250,7 @@
       const chart = new google.visualization.BarChart(dom.ownerChart);
       chart.draw(data, {
         legend: { position: 'top', textStyle: { fontName: 'Sarabun', fontSize: 12 } },
-        chartArea: { left: 100, top: 44, width: '76%', height: '70%' },
+        chartArea: window.innerWidth < 600 ? { left: 80, top: 40, width: '74%', height: '72%' } : { left: 100, top: 44, width: '76%', height: '70%' },
         colors: ['#006633', '#ef6c00'],
         fontName: 'Sarabun',
         hAxis: { minValue: 0, format: '0' },
